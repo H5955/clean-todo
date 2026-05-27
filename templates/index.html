@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Todo App</title>
+</head>
+
+<body>
+
+    <h1>🚀 Todo App</h1>
+
+    <form action="/add" method="post">
+
+        <input
+            type="text"
+            name="task"
+            placeholder="Enter task"
+            required
+        >
+
+        <button type="submit">
+            Add
+        </button>
+
+    </form>
+
+    <hr>
+
+    {% for todo in todos %}
+
+    <p>
+        {{ todo[1] }}
+        <a href="/delete/{{ todo[0] }}">❌</a>
+    </p>
+
+    {% endfor %}
+
+</body>
+
+</html>

@@ -86,6 +86,7 @@ async def toggle(todo_id: int):
 
 @app.get("/delete/{todo_id}")
 async def delete(todo_id: int):
+o
 
     cursor.execute(
         "DELETE FROM todos WHERE id=?",

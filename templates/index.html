@@ -181,7 +181,9 @@ onkeyup="searchTasks()">
 
 <div class="task-card">
 
-<input type="checkbox">
+<a href="/toggle/{{ todo[0] }}">
+    <input type="checkbox" {% if todo[2] %}checked{% endif %}>
+</a>
 
 <div class="task-name">
 {{ todo[1] }}

@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>🚀 My Todo App</title>
 
 <style>
@@ -14,8 +15,8 @@ body{
 }
 
 .container{
-    max-width:700px;
-    margin:auto;
+    width:100%;
+    max-width:100%;
 }
 
 h1{
@@ -26,8 +27,8 @@ h1{
 
 .counter{
     text-align:center;
-    margin-bottom:20px;
     color:#ccc;
+    margin-bottom:20px;
 }
 
 form{
@@ -68,13 +69,17 @@ button{
     padding:15px;
     border-radius:15px;
     margin-bottom:15px;
+    width:100%;
+    box-sizing:border-box;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
+    gap:15px;
 }
 
 .task-name{
+    flex:1;
+    margin-left:15px;
     font-size:22px;
     word-break:break-word;
 }
@@ -90,7 +95,7 @@ button{
 @media(max-width:600px){
 
     h1{
-        font-size:30px;
+        font-size:32px;
     }
 
     form{
@@ -118,11 +123,18 @@ button{
 
 <script>
 function searchTasks(){
-    let input=document.getElementById("searchInput").value.toLowerCase();
-    let cards=document.getElementsByClassName("task-card");
+    let input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    let cards =
+        document.getElementsByClassName("task-card");
 
     for(let i=0;i<cards.length;i++){
-        let text=cards[i].innerText.toLowerCase();
+
+        let text =
+            cards[i].innerText.toLowerCase();
 
         if(text.includes(input)){
             cards[i].style.display="";
@@ -169,11 +181,14 @@ onkeyup="searchTasks()">
 
 <div class="task-card">
 
+<input type="checkbox">
+
 <div class="task-name">
 {{ todo[1] }}
 </div>
 
-<a class="delete" href="/delete/{{ todo[0] }}">
+<a class="delete"
+href="/delete/{{ todo[0] }}">
 🗑 Delete
 </a>
 
@@ -185,5 +200,3 @@ onkeyup="searchTasks()">
 
 </body>
 </html>
-o
-

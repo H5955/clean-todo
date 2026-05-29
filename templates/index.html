@@ -9,51 +9,69 @@ body{
     background:#000;
     color:white;
     font-family:Arial,sans-serif;
-    max-width:700px;
-    margin:auto;
+    margin:0;
     padding:20px;
 }
 
-h1{
-    color:#00ff99;
-    text-align:center;
+.container{
+    max-width:700px;
+    margin:auto;
 }
 
-h3{
+h1{
     text-align:center;
+    color:#00ff99;
+    font-size:42px;
+}
+
+.counter{
+    text-align:center;
+    margin-bottom:20px;
+    color:#ccc;
 }
 
 form{
     display:flex;
-    flex-direction:column;
+    flex-wrap:wrap;
     gap:10px;
+    margin-bottom:15px;
 }
 
-input{
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    font-size:18px;
-}
-
+input,
+select,
 button{
     padding:15px;
     border:none;
     border-radius:10px;
-    background:#00ff99;
-    color:black;
-    font-size:18px;
-    font-weight:bold;
+    font-size:16px;
 }
 
-.task{
+input[type=text]{
+    flex:1;
+}
+
+button{
+    background:#00ff99;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#searchInput{
+    width:100%;
+    box-sizing:border-box;
+    margin-bottom:20px;
+}
+
+.task-card{
     background:#1e1e1e;
     padding:15px;
-    margin-top:15px;
     border-radius:15px;
+    margin-bottom:15px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:10px;
 }
 
 .task-name{
@@ -68,44 +86,104 @@ button{
     padding:10px 15px;
     border-radius:10px;
 }
+
+@media(max-width:600px){
+
+    h1{
+        font-size:30px;
+    }
+
+    form{
+        flex-direction:column;
+    }
+
+    input,
+    select,
+    button{
+        width:100%;
+        box-sizing:border-box;
+    }
+
+    .task-card{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .delete{
+        width:100%;
+        text-align:center;
+    }
+}
 </style>
+
+<script>
+function searchTasks(){
+    let input=document.getElementById("searchInput").value.toLowerCase();
+    let cards=document.getElementsByClassName("task-card");
+
+    for(let i=0;i<cards.length;i++){
+        let text=cards[i].innerText.toLowerCase();
+
+        if(text.includes(input)){
+            cards[i].style.display="";
+        }else{
+            cards[i].style.display="none";
+        }
+    }
+}
+</script>
 
 </head>
 
 <body>
 
+<div class="container">
+
 <h1>🚀 My Todo App</h1>
 
-<h3>Total Tasks: {{ count }}</h3>
+<div class="counter">
+Total Tasks: {{ count }}
+</div>
 
 <form action="/add" method="post">
-    <input
-        type="text"
-        name="task"
-        placeholder="Enter a task..."
-        required
-    >
 
-    <button type="submit">
-        ➕ Add Task
-    </button>
+<input
+type="text"
+name="task"
+placeholder="Enter a task..."
+required>
+
+<button type="submit">
+➕ Add
+</button>
+
 </form>
 
-<hr>
+<input
+type="text"
+id="searchInput"
+placeholder="Search tasks..."
+onkeyup="searchTasks()">
 
 {% for todo in todos %}
-<div class="task">
 
-    <div class="task-name">
-        {{ todo[1] }}
-    </div>
+<div class="task-card">
 
-    <a class="delete" href="/delete/{{ todo[0] }}">
-        🗑 Delete
-    </a>
+<div class="task-name">
+{{ todo[1] }}
+</div>
+
+<a class="delete" href="/delete/{{ todo[0] }}">
+🗑 Delete
+</a>
 
 </div>
+
 {% endfor %}
+
+</div>
 
 </body>
 </html>
+o
+

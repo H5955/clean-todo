@@ -29,12 +29,13 @@ async def home(request: Request):
     todos = cursor.fetchall()
 
     return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
-            "todos": todos
-        }
-    )
+    "index.html",
+    {
+        "request": request,
+        "todos": todos,
+        "count": len(todos)
+    }
+)
 
 @app.post("/add")
 async def add(task: str = Form(...)):

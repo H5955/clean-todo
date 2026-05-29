@@ -1,81 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🚀 My Todo App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 My Todo App</title>
 
-    <style>
-        form{
+<style>
+body{
+    background:#000;
+    color:white;
+    font-family:Arial,sans-serif;
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    color:#00ff99;
+    text-align:center;
+}
+
+h3{
+    text-align:center;
+}
+
+form{
     display:flex;
-    flex-wrap:wrap;
+    flex-direction:column;
     gap:10px;
 }
 
-input[type=text]{
-    flex:1;
-    min-width:200px;
-}
-
-select{
+input{
     padding:15px;
+    border:none;
     border-radius:10px;
+    font-size:18px;
 }
 
 button{
-    padding:15px 20px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#00ff99;
+    color:black;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .task{
-    width:100%;
-    box-sizing:border-box;
+    background:#1e1e1e;
+    padding:15px;
+    margin-top:15px;
+    border-radius:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-@media (max-width:600px){
-
-    h1{
-        font-size:28px;
-    }
-
-    form{
-        flex-direction:column;
-    }
-
-    input,
-    select,
-    button{
-        width:100%;
-    }
-
-    .task{
-        font-size:18px;
-    }
+.task-name{
+    font-size:22px;
+    word-break:break-word;
 }
-    </style>
+
+.delete{
+    background:red;
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:10px;
+}
+</style>
+
 </head>
 
 <body>
 
-    <h1>🚀 My Todo App</h1>
+<h1>🚀 My Todo App</h1>
+
 <h3>Total Tasks: {{ count }}</h3>
 
-    <form action="/add" method="post">
-        <input
-            type="text"
-            name="task"
-            placeholder="Enter a task..."
-            required
-        >
+<form action="/add" method="post">
+    <input
+        type="text"
+        name="task"
+        placeholder="Enter a task..."
+        required
+    >
 
-        <button type="submit">
-            ➕ Add Task
-        </button>
-    </form>
+    <button type="submit">
+        ➕ Add Task
+    </button>
+</form>
 
-    <hr>
+<hr>
 
-    {% for todo in todos %}
-    <div class="task">
-        <div class="task-name">
-            {{ todo[1] }}
-        </div>
+{% for todo in todos %}
+<div class="task">
 
-        <a class="delete" href="/delete/{{
+    <div class="task-name">
+        {{ todo[1] }}
+    </div>
+
+    <a class="delete" href="/delete/{{ todo[0] }}">
+        🗑 Delete
+    </a>
+
+</div>
+{% endfor %}
+
+</body>
+</html>

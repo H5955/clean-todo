@@ -4,74 +4,51 @@
     <title>🚀 My Todo App</title>
 
     <style>
-        body{
-            background:#000;
-            color:white;
-            font-family:Arial,sans-serif;
-            max-width:700px;
-            margin:auto;
-            padding:20px;
-        }
-
-        h1{
-            text-align:center;
-            color:#00ff99;
-            font-size:42px;
-        }
-
         form{
-            margin-bottom:20px;
-        }
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
 
-        input{
-            width:100%;
-            padding:15px;
-            border:none;
-            border-radius:10px;
-            font-size:18px;
-            box-sizing:border-box;
-        }
+input[type=text]{
+    flex:1;
+    min-width:200px;
+}
 
-        button{
-            width:100%;
-            padding:15px;
-            margin-top:10px;
-            border:none;
-            border-radius:10px;
-            background:#00ff99;
-            color:black;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
-        }
+select{
+    padding:15px;
+    border-radius:10px;
+}
 
-        .task{
-            background:#1e1e1e;
-            padding:15px;
-            margin-top:15px;
-            border-radius:15px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-        }
+button{
+    padding:15px 20px;
+}
 
-        .task-name{
-            font-size:22px;
-            word-break:break-word;
-        }
+.task{
+    width:100%;
+    box-sizing:border-box;
+}
 
-        .delete{
-            background:red;
-            color:white;
-            text-decoration:none;
-            padding:10px 15px;
-            border-radius:10px;
-            font-size:20px;
-        }
+@media (max-width:600px){
 
-        hr{
-            border:1px solid #333;
-        }
+    h1{
+        font-size:28px;
+    }
+
+    form{
+        flex-direction:column;
+    }
+
+    input,
+    select,
+    button{
+        width:100%;
+    }
+
+    .task{
+        font-size:18px;
+    }
+}
     </style>
 </head>
 

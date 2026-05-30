@@ -46,14 +46,14 @@ async def home(request: Request):
     completed_count = sum(todo[2] for todo in todos)
 
     return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
-            "todos": todos,
-            "count": len(todos),
-            "completed_count": completed_count
-        }
-    )
+    request=request,
+    name="index.html",
+    context={
+        "todos": todos,
+        "count": len(todos),
+        "completed_count": completed_count
+    }
+)
 
 
 @app.post("/add")

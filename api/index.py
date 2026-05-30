@@ -10,7 +10,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-conn = sqlite3.connect("todos.db", check_same_thread=False)
+conn = sqlite3.connect("/tmp/todos.db", check_same_thread=False)
 cursor = conn.cursor()
 
 cursor.execute("""

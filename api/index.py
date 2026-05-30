@@ -4,6 +4,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import sqlite3
 
+import sqlite3
+import os
+
+DB_PATH = "/tmp/todos.db" if os.getenv("VERCEL") else "todos.db"
+
+conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+cursor = conn.cursor()
+
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")

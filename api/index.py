@@ -4,12 +4,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import sqlite3
 
-import sqlite3
+import psycopg
 import os
 
-DB_PATH = "/tmp/todos.db" if os.getenv("VERCEL") else "todos.db"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+conn = psycopg.connect(DATABASE_URL)
 cursor = conn.cursor()
 
 app = FastAPI()
@@ -23,7 +23,7 @@ cursor = conn.cursor()
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS todos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     task TEXT,
     completed INTEGER DEFAULT 0
 )

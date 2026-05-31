@@ -139,13 +139,9 @@ Completed: {{ completed_count }}
 </div>
 
 <form action="/add" method="post">
-<input
-type="text"
-name="task"
-placeholder="Enter a task..."
-required
->
-<button type="submit">Add</button>
+    <input type="text" name="task" placeholder="New task" required>
+    <input type="date" name="due_date">
+    <button type="submit">Add</button>
 </form>
 
 <input
@@ -167,6 +163,11 @@ onchange="window.location='/toggle/{{ todo[0] }}'"
 
 <div class="task-name">
 {{ todo[1] }}
+
+{% if todo[3] %}
+<br>
+<small>📅 Due: {{ todo[3] }}</small>
+{% endif %}
 </div>
 
 <a class="delete"

@@ -23,7 +23,8 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS todos (
     id SERIAL PRIMARY KEY,
     task TEXT,
-    completed INTEGER DEFAULT 0
+    completed INTEGER DEFAULT 0,
+    due_date DATE
 )
 """)
 
@@ -57,14 +58,18 @@ async def home(request: Request):
 
 
 @app.post("/add")
-async def add(task: str = Form(...)):
+async def add(
+    task: str = Form(...),
+    due_date: str = Form(None)
+):
+
     conn = get_conn()
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO todos (task, completed) VALUES (%s, %s)",
-        (task, 0)
-    )
+    "INSERT INTO todos (task, completed, due_date) VALUES (%s, %s, %s)",
+    (task, 0, due_date)
+)
 
     conn.commit()
     cursor.close()

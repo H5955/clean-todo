@@ -1,54 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>🚀 My Todo App</title>
+<title>My Todo App</title>
 
 <style>
 body{
     background:#000;
     color:white;
     font-family:Arial,sans-serif;
-    margin:0;
     padding:20px;
 }
 
 .container{
     width:100%;
-    max-width:100%;
+    max-width:700px;
+    margin:auto;
 }
 
 h1{
     text-align:center;
     color:#00ff99;
-    font-size:42px;
 }
 
 .counter{
     text-align:center;
-    color:#ccc;
     margin-bottom:20px;
 }
 
 form{
     display:flex;
-    flex-wrap:wrap;
     gap:10px;
+    flex-wrap:wrap;
     margin-bottom:15px;
-}
-
-input,
-select,
-button{
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
 }
 
 input[type=text]{
     flex:1;
+}
+
+input,button{
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
 }
 
 button{
@@ -65,12 +61,10 @@ button{
 }
 
 .task-card{
-    background:#1e1e1e;
+    background:#1f1f1f;
     padding:15px;
     border-radius:15px;
     margin-bottom:15px;
-    width:100%;
-    box-sizing:border-box;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -94,30 +88,14 @@ button{
 
 @media(max-width:600px){
 
-    h1{
-        font-size:32px;
-    }
+.task-card{
+    flex-direction:row;
+}
 
-    form{
-        flex-direction:column;
-    }
+.task-name{
+    font-size:18px;
+}
 
-    input,
-    select,
-    button{
-        width:100%;
-        box-sizing:border-box;
-    }
-
-    .task-card{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .delete{
-        width:100%;
-        text-align:center;
-    }
 }
 </style>
 
@@ -134,10 +112,12 @@ function searchTasks(){
     for(let i=0;i<cards.length;i++){
 
         let text =
-            cards[i].innerText.toLowerCase();
+            cards[i]
+            .innerText
+            .toLowerCase();
 
         if(text.includes(input)){
-            cards[i].style.display="";
+            cards[i].style.display="flex";
         }else{
             cards[i].style.display="none";
         }
@@ -146,44 +126,44 @@ function searchTasks(){
 </script>
 
 </head>
-
 <body>
 
 <div class="container">
 
-<h1>🚀 My Todo App</h1>
+<h1>📋 My Todo App</h1>
 
 <div class="counter">
 Total Tasks: {{ count }}
+<br>
+Completed: {{ completed_count }}
 </div>
 
 <form action="/add" method="post">
-
 <input
 type="text"
 name="task"
 placeholder="Enter a task..."
-required>
-
-<button type="submit">
-➕ Add
-</button>
-
+required
+>
+<button type="submit">Add</button>
 </form>
 
 <input
 type="text"
 id="searchInput"
 placeholder="Search tasks..."
-onkeyup="searchTasks()">
+onkeyup="searchTasks()"
+>
 
 {% for todo in todos %}
 
 <div class="task-card">
 
-<a href="/toggle/{{ todo[0] }}">
-    <input type="checkbox" {% if todo[2] %}checked{% endif %}>
-</a>
+<input
+type="checkbox"
+{% if todo[2] %}checked{% endif %}
+onchange="window.location='/toggle/{{ todo[0] }}'"
+>
 
 <div class="task-name">
 {{ todo[1] }}

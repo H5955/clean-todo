@@ -19,14 +19,13 @@ templates = Jinja2Templates(directory="templates")
 conn = get_conn()
 cursor = conn.cursor()
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS todos (
-    id SERIAL PRIMARY KEY,
-    task TEXT,
-    completed INTEGER DEFAULT 0,
-    due_date DATE
-)
-""")
+try:
+    cursor.execute(
+        "ALTER TABLE todos ADD COLUMN due_date DATE"
+    )
+    conn.commit()
+except:
+    pass
 
 conn.commit()
 cursor.close()
